@@ -32,6 +32,12 @@ axios.interceptors.response.use(response => {
 
 ReactDom.render(
     <App />,
-    document.getElementById('root')
+    document.getElementById('mountNode')
 );
+
 registerServiceWorker();
+
+// browser shouldn’t perform a page refresh, but the application reloads and shows the correct output
+if (module.hot) {
+    module.hot.accept();
+}
