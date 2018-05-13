@@ -31,25 +31,38 @@ const list = [
   }
 ];
 
+function byQuery(query) {
+    return function(item) {
+      return !query || item.title.toLowerCase().includes(query.toLowerCase());
+    }
+}
+
 export default class Page extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       list: list,
-      query: ''
+      query: '',
+      archivedItems: []
     };
 
     this.onDismiss = this.onDismiss.bind(this);
     this.onSearchChange = this.onSearchChange.bind(this);
     this.onSearchSubmit = this.onSearchSubmit.bind(this);  
+    this.onArchive = this.onArchive.bind(this);  
   }  
   
   onSearchChange(event) {
-    const { value } = event.target
-    this.setState({query: value}) // stored in local state
+    const { value } = event.target;
+    this.setState({query: value}); // stored in local state
   }
   
+  onSearchSubmit(event) {
+    this.setState({queryActive: this.state.query});
+    event.preventDefault();
+  }
+
   onDismiss(id) {
     // function isNotId(item) {
     //   return item.objectID !== id;
@@ -61,13 +74,16 @@ export default class Page extends Component {
     this.setState({list: updatedList});
   }
 
-  onSearchSubmit(event) {
-    this.setState({queryActive: this.state.query});
-    event.preventDefault();
+  onArchive(id) {
+    const { archivedItems } = this.state;
+
+    this.setState({
+        archivedItems: [...archivedItems, id]
+    });
   }
 
   render() {
-    const { query, queryActive, list } = this.state;
+    const { query, queryActive} = this.state;
 
     return (
       <BrowserRouter>
@@ -76,13 +92,14 @@ export default class Page extends Component {
             <SearchForm 
                 value={query}
                 onChange={this.onSearchChange}
-                onSearchSubmit={this.onSearchSubmit}>
+                onSubmit={this.onSearchSubmit}>
             Search&nbsp;
             </SearchForm>
           </div>
           <PostsList
-              list={list}
-              pattern={queryActive}
+              list={(list || []).filter(byQuery(query))}
+            //   pattern={queryActiive}
+            //   pattern={query}
               onDismiss={this.onDismiss} />
         </div>
       </BrowserRouter>

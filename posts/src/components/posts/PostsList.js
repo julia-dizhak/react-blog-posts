@@ -5,20 +5,20 @@ const largeColumn = { width: '40%'},
     midColumn = { width: '35%'},
     smallColumn = { width: '10%'};
 
-function isSearched(query='') {
-    return function(item) {
-      // filter return new array
-      return item.title.toLowerCase().includes(query.toLowerCase());
-      //return item.title.toLowerCase().indexOf(query.toLowerCase()) !== -1;
-    }
-}
+// function isSearched(query='') {
+//     return function(item) {
+//       // filter return new array
+//       return !query || item.title.toLowerCase().includes(query.toLowerCase());
+//       //return !query || item.title.toLowerCase().indexOf(query.toLowerCase()) !== -1;
+//     }
+// }
 
 export default function PostsList(props) {  
-    const { list, pattern, onDismiss } = props; 
+    const { list, onDismiss, onArchive } = props; 
     return (
         <React.Fragment>
             <ul className="posts-list">
-            {list.filter(isSearched(pattern)).map(item =>
+            {list.map(item =>
                 <li 
                     className="posts" 
                     key={item.objectID}>
@@ -32,6 +32,10 @@ export default function PostsList(props) {
                         <Button
                            onClick={() => onDismiss(item.objectID)}>
                            Dismiss
+                        </Button>
+                        <Button
+                           onClick={() => onArchive(item.id)}>
+                           Archive
                         </Button>
                     </span>
                 </li> )   

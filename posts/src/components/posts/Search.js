@@ -1,11 +1,11 @@
 import React from 'react';
 
 export default function SearchForm(props) {
-    const { value, onChange, onSearchSubmit, children } = props;
+    const { value, onChange, onSubmit, children } = props;
     
     return (
         <form 
-            onSubmit={onSearchSubmit}
+            onSubmit={onSubmit}
             className="search">
             { children } 
             <input
@@ -15,7 +15,7 @@ export default function SearchForm(props) {
             />
             <button 
                 type="submit"
-                onSubmit={onSearchSubmit}>
+                onSubmit={onSubmit}>
                 Search
             </button>
         </form>

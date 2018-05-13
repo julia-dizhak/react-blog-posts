@@ -15,7 +15,9 @@ book Road to react, author Robin Wieruch
 * render posts from const, from json
 * remove post
 * filter for titles in post
-* submit filter post
+* submit filtered posts
+* to archive an item in the list.
 
 ### TODO Posts
 * onClick clear button inside search - update posts 
+* works together onSearch and onSubmit for search input
