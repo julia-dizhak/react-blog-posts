@@ -1,5 +1,84 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  color: #222;
+  background: #f4f4f4;
+  font: 400 14px CoreSans, Arial,sans-serif;
+}
+
+a { color: #222; }
+a:hover { text-decoration: underline;}
+ul, li { list-style: none; padding: 0; margin: 0;}
+
+input {
+  padding: 10px;
+  border-radius: 4px; 
+  outline: none; 
+  margin-right: 10px; 
+  border: 1px solid #ddd;
+}
+
+button {
+  padding: 10px; 
+  border-radius: 4px;
+  border: 1px solid #ddd; 
+  background: transparent; 
+  color: #808080;
+  cursor: pointer;
+}
+button:hover { color: #222;}
+*:focus { outline: none;}
+
+.page {
+   margin: 30px;
+   /* width: 50%; */
+}
+.interactions { 
+  text-align: center;
+}
+.interactions .search {
+  margin-bottom: 15px;;
+}
+
+.posts-list {
+  margin: 30px 0;
+  display: flex;
+  line-height: 24px;
+  font-size: 16px;
+  padding: 0 10px; 
+  justify-content: space-between;
+}
+.posts button {
+  margin: 0 5px 0 0;
+  border-width: 0;
+  background: transparent;
+  color: inherit;
+  text-align: inherit; 
+  -webkit-font-smoothing: inherit; 
+  padding: 0;
+  font-size: inherit;
+  cursor: pointer;
+}
+.posts button.active {
+  border-radius: 0;
+  border-bottom: 1px solid #38BB6C;
+}  
+.empty { 
+  margin: 200px; 
+  text-align: center; 
+  font-size: 16px;
+}
+.posts {
+  /* display: flex;  */
+  line-height: 24px;
+  white-space: nowrap; 
+  margin: 10px 0;
+  padding: 10px; 
+  background: #ffffff; 
+  border: 1px solid #e3e3e3;
+}
+.posts > span { 
+  overflow: hidden; 
+  text-overflow: ellipsis; 
+  padding: 0 5px;
 }
