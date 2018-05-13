@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter } from 'react-router-dom';
+
 import SearchForm from './components/posts/Search';
 import PostsList from './components/posts/PostsList';
 
@@ -36,15 +37,17 @@ export default class Page extends Component {
 
     this.state = {
       list: list,
-      searchTerm: ''
+      query: ''
     };
 
     this.onDismiss = this.onDismiss.bind(this);
     this.onSearchChange = this.onSearchChange.bind(this);
+    this.onSearchSubmit = this.onSearchSubmit.bind(this);  
   }  
   
   onSearchChange(event) {
-    this.setState({searchTerm: event.target.value}) // stored in local state
+    const { value } = event.target
+    this.setState({query: value}) // stored in local state
   }
   
   onDismiss(id) {
@@ -58,22 +61,28 @@ export default class Page extends Component {
     this.setState({list: updatedList});
   }
 
-  render () {
-    const { searchTerm, list } = this.state;
+  onSearchSubmit(event) {
+    this.setState({queryActive: this.state.query});
+    event.preventDefault();
+  }
+
+  render() {
+    const { query, queryActive, list } = this.state;
 
     return (
       <BrowserRouter>
         <div className="page">
           <div className="interactions">
             <SearchForm 
-                value={searchTerm}
-                onChange={this.onSearchChange}>
+                value={query}
+                onChange={this.onSearchChange}
+                onSearchSubmit={this.onSearchSubmit}>
             Search&nbsp;
             </SearchForm>
           </div>
           <PostsList
               list={list}
-              pattern={searchTerm}
+              pattern={queryActive}
               onDismiss={this.onDismiss} />
         </div>
       </BrowserRouter>

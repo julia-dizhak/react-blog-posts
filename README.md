@@ -15,3 +15,7 @@ book Road to react, author Robin Wieruch
 * render posts from const, from json
 * remove post
 * filter for titles in post
+* submit filter post
+
+### TODO Posts
+* onClick clear button inside search - update posts 
