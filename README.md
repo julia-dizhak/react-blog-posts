@@ -16,7 +16,7 @@ book Road to react, author Robin Wieruch
 * remove post
 * filter for titles in post
 * submit filtered posts
-* to archive an item in the list.
+* to archive a post in the list
 
 ### TODO Posts
 * should onSubmit hanlder be inside SearchForm?

@@ -3,6 +3,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 import SearchForm from './components/posts/Search';
 import PostsList from './components/posts/PostsList';
+import byQuery from './utils/filterByQuery';
 
 const list = [
   {
@@ -31,32 +32,18 @@ const list = [
   }
 ];
 
-function byQuery(query) {
-    return function(item) {
-      return !query || item.title.toLowerCase().includes(query.toLowerCase());
-    }
-}
-
-function byArchived(archivedItems) {
-    return function(item) {
-      return !archivedItems.includes(item.id);
-    }
-}
-
 export default class Page extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       list: list,
-      query: '',
-      archivedItems: []
+      query: ''
     };
 
     this.onDismiss = this.onDismiss.bind(this);
     this.onSearchChange = this.onSearchChange.bind(this);
     this.onSearchSubmit = this.onSearchSubmit.bind(this);  
-    this.onArchive = this.onArchive.bind(this);  
   }  
   
   onSearchChange(event) {
@@ -80,22 +67,10 @@ export default class Page extends Component {
     this.setState({list: updatedList});
   }
 
-  onArchive(id) {
-    const { archivedItems } = this.state;
-
-    this.setState({
-        archivedItems: [...archivedItems, id]
-    });
-    console.log(archivedItems)
-    debugger;
-  }
-
   render() {
     //const { queryActive } = this.state; // for onSubmit
-    const { query, archivedItems, list } = this.state;
-    const filteredList = list
-                            .filter(byQuery(query))
-                            .filter(byArchived(archivedItems));
+    const { query, list } = this.state;
+    const filteredList = list.filter(byQuery(query));
 
     return (
       <BrowserRouter>
@@ -109,9 +84,9 @@ export default class Page extends Component {
             </SearchForm>
           </div>
           <PostsList
-              list={filteredList}
-              onDismiss={this.onDismiss}
-              onArchive={this.onArchive} />
+            list={filteredList}
+            onDismiss={this.onDismiss}
+           />
         </div>
       </BrowserRouter>
     );
