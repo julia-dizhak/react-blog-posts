@@ -19,5 +19,6 @@ book Road to react, author Robin Wieruch
 * to archive an item in the list.
 
 ### TODO Posts
+* should onSubmit hanlder be inside SearchForm?
 * onClick clear button inside search - update posts 
 * works together onSearch and onSubmit for search input

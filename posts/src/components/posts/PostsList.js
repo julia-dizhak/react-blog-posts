@@ -34,7 +34,7 @@ export default function PostsList(props) {
                            Dismiss
                         </Button>
                         <Button
-                           onClick={() => onArchive(item.id)}>
+                           onClick={() => onArchive(item.objectID)}>
                            Archive
                         </Button>
                     </span>

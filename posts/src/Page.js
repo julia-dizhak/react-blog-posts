@@ -37,6 +37,12 @@ function byQuery(query) {
     }
 }
 
+function byArchived(archivedItems) {
+    return function(item) {
+      return !archivedItems.includes(item.id);
+    }
+}
+
 export default class Page extends Component {
   constructor(props) {
     super(props);
@@ -80,10 +86,16 @@ export default class Page extends Component {
     this.setState({
         archivedItems: [...archivedItems, id]
     });
+    console.log(archivedItems)
+    debugger;
   }
 
   render() {
-    const { query, queryActive} = this.state;
+    //const { queryActive } = this.state; // for onSubmit
+    const { query, archivedItems, list } = this.state;
+    const filteredList = list
+                            .filter(byQuery(query))
+                            .filter(byArchived(archivedItems));
 
     return (
       <BrowserRouter>
@@ -97,10 +109,9 @@ export default class Page extends Component {
             </SearchForm>
           </div>
           <PostsList
-              list={(list || []).filter(byQuery(query))}
-            //   pattern={queryActiive}
-            //   pattern={query}
-              onDismiss={this.onDismiss} />
+              list={filteredList}
+              onDismiss={this.onDismiss}
+              onArchive={this.onArchive} />
         </div>
       </BrowserRouter>
     );
