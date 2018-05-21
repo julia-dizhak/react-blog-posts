@@ -5,54 +5,47 @@ import SearchForm from './components/posts/Search';
 import PostsList from './components/posts/PostsList';
 import byQuery from './utils/filterByQuery';
 
-const list = [
-  {
-    title: 'React',
-    url: 'https://facebook.github.io/react/',
-    author: 'Jordan Walke',
-    num_comments: 3,
-    points: 4,
-    objectID: 0,
-  }, 
-  {
-    title: 'Redux',
-    url: 'https://github.com/reactjs/redux',
-    author: 'Dan Abramov, Andrew Clark',
-    num_comments: 2,
-    points: 5,
-    objectID: 1
-  },
-  {
-    title: 'New book',
-    url: '',
-    author: 'New author',
-    num_comments: 1,
-    points: 1,
-    objectID: 2
-  }
-];
+const PATH_BASE = 'https://hn.algolia.com/api/v1';
+const PATH_SEARCH = '/search';
+const PARAM_SEARCH = 'query=';
+const DEFAULT_QUERY = 'redux';
+const URL = `${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${DEFAULT_QUERY}`;
 
 export default class Page extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      list: list,
-      query: ''
+      result: null,
+      query: DEFAULT_QUERY
     };
 
+    this.setSearchTopStories = this.setSearchTopStories.bind(this);
     this.onDismiss = this.onDismiss.bind(this);
     this.onSearchChange = this.onSearchChange.bind(this);
     this.onSearchSubmit = this.onSearchSubmit.bind(this);  
   }  
+
+  setSearchTopStories(result) {
+    this.setState({ result })
+  }
+
+  componentDidMount() {
+    const { query } = this.state;
   
+    fetch(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${query}`)
+        .then(response => response.json())
+        .then(result => this.setSearchTopStories(result))
+        .catch(error => error);
+  }
+
   onSearchChange(event) {
     const { value } = event.target;
-    this.setState({query: value}); // stored in local state
+    this.setState({ query: value }); // stored in local state
   }
   
   onSearchSubmit(event) {
-    this.setState({queryActive: this.state.query});
+    this.setState({ queryActive: this.state.query });
     event.preventDefault();
   }
 
@@ -69,12 +62,18 @@ export default class Page extends Component {
 
   render() {
     //const { queryActive } = this.state; // for onSubmit
-    const { query, list } = this.state;
-    const filteredList = list.filter(byQuery(query));
+    const { query, result } = this.state;
+    //const filteredList = result.filter(byQuery(query));
+    
+    console.log(result);
+    if (!result) {
+      return null;
+    }
 
     return (
       <BrowserRouter>
         <div className="page">
+
           <div className="interactions">
             <SearchForm 
                 value={query}
@@ -83,10 +82,14 @@ export default class Page extends Component {
             Search&nbsp;
             </SearchForm>
           </div>
-          <PostsList
-            list={filteredList}
-            onDismiss={this.onDismiss}
-           />
+
+          {result ?
+            <PostsList
+              list={result.hits}
+              onDismiss={this.onDismiss}
+            />
+            : null
+          } 
         </div>
       </BrowserRouter>
     );

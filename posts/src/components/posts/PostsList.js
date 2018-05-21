@@ -32,15 +32,17 @@ export default class PostsList extends Component {
         this.setState({
             archivedItems: [...archivedItems, id]
         });
-        console.log(archivedItems);
     }
 
     render() {  
         const { list, onDismiss } = this.props; 
         const { archivedItems } = this.state;
-
+        
         const filteredList = list.filter(byArchived(archivedItems));
-        console.log(filteredList)
+console.log(list);
+        if (!list) {
+            return null;
+        }
 
         return (
             <React.Fragment>

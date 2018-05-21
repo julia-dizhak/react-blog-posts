@@ -1,6 +1,7 @@
 # Blog posts
 simple blog with a posts build by react
-book Road to react, author Robin Wieruch
+
+from book Road to react, author Robin Wieruch
 
 ## React
 * use this.state and setState() to manage your internal component state
@@ -11,8 +12,12 @@ book Road to react, author Robin Wieruch
 * usage and implementation of ES6 class components and functional stateless components
 * approaches to style your components
 
+## JS
+*fetch - an asynchronous request to an API
+
 ### Posts
-* render posts from const, from json
+* render posts from const
+* render posts from Hacker News API
 * remove post
 * filter for titles in post
 * submit filtered posts
