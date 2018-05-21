@@ -16,12 +16,12 @@ from book Road to react, author Robin Wieruch
 *fetch - an asynchronous request to an API
 
 ### Posts
-* render posts from const
-* render posts from Hacker News API
+* render posts from const and from HackerNews API
 * remove post
 * filter for titles in post
 * submit filtered posts
 * to archive a post in the list
+* able to search different HackerNews stories (no client-side search anymore)
 
 ### TODO Posts
 * should onSubmit hanlder be inside SearchForm?

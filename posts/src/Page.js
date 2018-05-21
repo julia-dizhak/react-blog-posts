@@ -21,6 +21,7 @@ export default class Page extends Component {
     };
 
     this.setSearchTopStories = this.setSearchTopStories.bind(this);
+    this.fetchSearchTopStories = this.fetchSearchTopStories.bind(this);
     this.onDismiss = this.onDismiss.bind(this);
     this.onSearchChange = this.onSearchChange.bind(this);
     this.onSearchSubmit = this.onSearchSubmit.bind(this);  
@@ -30,13 +31,17 @@ export default class Page extends Component {
     this.setState({ result })
   }
 
+  fetchSearchTopStories(query) {
+    fetch(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${query}`)
+      .then(response => response.json())
+      .then(result => this.setSearchTopStories(result))
+      .catch(error => error);
+    }
+
   componentDidMount() {
     const { query } = this.state;
-  
-    fetch(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${query}`)
-        .then(response => response.json())
-        .then(result => this.setSearchTopStories(result))
-        .catch(error => error);
+
+    this.fetchSearchTopStories(query);
   }
 
   onSearchChange(event) {
@@ -45,8 +50,12 @@ export default class Page extends Component {
   }
   
   onSearchSubmit(event) {
-    this.setState({ queryActive: this.state.query });
-    event.preventDefault();
+    //this.setState({ queryActive: this.state.query });
+
+    const { query } = this.state;
+
+    this.fetchSearchTopStories(query);
+    event.preventDefault(); // suppress thw native browser behavior
   }
 
   onDismiss(id) {
