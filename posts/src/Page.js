@@ -53,11 +53,15 @@ export default class Page extends Component {
     // function isNotId(item) {
     //   return item.objectID !== id;
     // }
-    // const isNotId = item => item.objectID !== id;
-    // const updatedList = this.state.list.filter(isNotId);
-    console.log(this.state.list);
-    const updatedList = this.state.list.filter(item => item.objectID !== id);
-    this.setState({list: updatedList});
+    const isNotId = item => item.objectID !== id;
+    const updatedHits = this.state.result.hits.filter(isNotId);
+
+    // this.setState({
+    //   result: Object.assign({}, this.state.result, {hits: updatedHits})
+    // });
+    this.setState({
+      result: {...this.state.result, hits: updatedHits}
+    })
   }
 
   render() {

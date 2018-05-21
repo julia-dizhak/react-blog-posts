@@ -1,5 +1,5 @@
 # Blog posts
-simple blog with a posts build by react
+simple blog with a posts build by react using [HackerNews API](https://github.com/HackerNews/API)
 
 from book Road to react, author Robin Wieruch
 
