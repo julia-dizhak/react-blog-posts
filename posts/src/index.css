@@ -47,6 +47,7 @@ button:hover { color: #222;}
   font-size: 16px;
   padding: 0 10px; 
   justify-content: space-between;
+  flex-wrap: wrap;
 }
 .posts button {
   margin: 0 5px 0 0;
@@ -68,11 +69,12 @@ button:hover { color: #222;}
   font-size: 16px;
 }
 .posts {
-  /* display: flex;  */
+  width: 32%;
+  box-sizing: border-box;
   line-height: 24px;
   white-space: nowrap; 
-  margin: 10px 0;
-  padding: 10px; 
+  margin: 10px;
+  padding: 10px 15px; 
   background: #ffffff; 
   border: 1px solid #e3e3e3;
 }
@@ -80,4 +82,10 @@ button:hover { color: #222;}
   overflow: hidden; 
   text-overflow: ellipsis; 
   padding: 0 5px;
+  display: inline-block;
+  vertical-align: middle;
+}
+.posts .title a {
+  max-width: 8%;
+  display: inline-block;
 }

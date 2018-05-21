@@ -3,8 +3,8 @@ import React, { Component } from 'react';
 import Button from './Button';
 import byArchived from './../../utils/archived';
 
-const largeColumn = { width: '40%'},
-    midColumn = { width: '35%'},
+const largeColumn = { width: '30%'},
+    midColumn = { width: '15%'},
     smallColumn = { width: '10%'};
 
 // function isSearched(query='') {
@@ -37,9 +37,8 @@ export default class PostsList extends Component {
     render() {  
         const { list, onDismiss } = this.props; 
         const { archivedItems } = this.state;
-        
+
         const filteredList = list.filter(byArchived(archivedItems));
-console.log(list);
         if (!list) {
             return null;
         }
@@ -51,12 +50,14 @@ console.log(list);
                     <li 
                         className="posts" 
                         key={item.objectID}>
-                        <span style={largeColumn}>
-                            <a href={item.url}>{ item.title }&nbsp;</a>
+                        <span 
+                            style={largeColumn} 
+                            className="title">
+                            <a href={item.url}>{item.title}&nbsp;</a>
                         </span>
-                        <span style={midColumn}>{ item.author }&nbsp;</span>
-                        <span style={smallColumn}>{ item.num_comments }&nbsp;</span>
-                        <span style={{width: '10%'}}>{ item.points }&nbsp;</span>
+                        <span style={midColumn}>{item.author}&nbsp;</span>
+                        <span style={smallColumn}>{item.num_comments}&nbsp;</span>
+                        <span style={{width: '10%'}}>{item.points}&nbsp;</span>
                         <span style={{width: '30%'}}>
                             <Button
                                 onClick={() => onDismiss(item.objectID)}>

@@ -3,13 +3,13 @@ import { BrowserRouter } from 'react-router-dom';
 
 import SearchForm from './components/posts/Search';
 import PostsList from './components/posts/PostsList';
-import byQuery from './utils/filterByQuery';
+//import byQuery from './utils/filterByQuery';
 
 const PATH_BASE = 'https://hn.algolia.com/api/v1';
 const PATH_SEARCH = '/search';
 const PARAM_SEARCH = 'query=';
 const DEFAULT_QUERY = 'redux';
-const URL = `${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${DEFAULT_QUERY}`;
+//const URL = `${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${DEFAULT_QUERY}`;
 
 export default class Page extends Component {
   constructor(props) {
@@ -55,7 +55,7 @@ export default class Page extends Component {
     // }
     // const isNotId = item => item.objectID !== id;
     // const updatedList = this.state.list.filter(isNotId);
-
+    console.log(this.state.list);
     const updatedList = this.state.list.filter(item => item.objectID !== id);
     this.setState({list: updatedList});
   }
@@ -65,7 +65,7 @@ export default class Page extends Component {
     const { query, result } = this.state;
     //const filteredList = result.filter(byQuery(query));
     
-    console.log(result);
+    //console.log(result);
     if (!result) {
       return null;
     }
