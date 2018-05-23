@@ -3,13 +3,15 @@ import { BrowserRouter } from 'react-router-dom';
 
 import SearchForm from './components/posts/Search';
 import PostsList from './components/posts/PostsList';
+import Button from './components/posts/Button';
 //import byQuery from './utils/filterByQuery';
 
 const PATH_BASE = 'https://hn.algolia.com/api/v1';
 const PATH_SEARCH = '/search';
 const PARAM_SEARCH = 'query=';
 const DEFAULT_QUERY = 'redux';
-//const URL = `${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${DEFAULT_QUERY}`;
+const PARAM_PAGE = 'page=';
+//const URL = `${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${DEFAULT_QUERY}&${PARAM_PAGE}`;
 
 export default class Page extends Component {
   constructor(props) {
@@ -31,8 +33,9 @@ export default class Page extends Component {
     this.setState({ result })
   }
 
-  fetchSearchTopStories(query) {
-    fetch(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${query}`)
+  fetchSearchTopStories(query, page = 0) {
+    console.log(page);
+    fetch(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${query}&${PARAM_PAGE}${page}`)
       .then(response => response.json())
       .then(result => this.setSearchTopStories(result))
       .catch(error => error);
@@ -76,6 +79,7 @@ export default class Page extends Component {
   render() {
     //const { queryActive } = this.state; // for onSubmit
     const { query, result } = this.state;
+    const page = (result && result.page) || 0;
     //const filteredList = result.filter(byQuery(query));
     
     //console.log(result);
@@ -103,6 +107,12 @@ export default class Page extends Component {
             />
             : null
           } 
+
+          <div className="interactions">
+              <Button
+                onClick={() => this.fetchSearchTopStories(query, page + 1)}>More</Button>  
+          </div>  
+
         </div>
       </BrowserRouter>
     );
