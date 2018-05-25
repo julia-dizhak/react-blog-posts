@@ -6,11 +6,15 @@ import PostsList from './components/posts/PostsList';
 import Button from './components/posts/Button';
 //import byQuery from './utils/filterByQuery';
 
-const PATH_BASE = 'https://hn.algolia.com/api/v1';
-const PATH_SEARCH = '/search';
-const PARAM_SEARCH = 'query=';
-const DEFAULT_QUERY = 'redux';
-const PARAM_PAGE = 'page=';
+const PATH_BASE = 'https://hn.algolia.com/api/v1',
+     PATH_SEARCH = '/search',
+     PARAM_SEARCH = 'query=',
+     PARAM_PAGE = 'page=',
+     PARAM_HPP = 'hitsPerPage=';
+     
+const DEFAULT_QUERY = 'redux',
+    DEFAULT_HPP = '15';
+
 //const URL = `${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${DEFAULT_QUERY}&${PARAM_PAGE}`;
 
 export default class Page extends Component {
@@ -50,7 +54,7 @@ export default class Page extends Component {
   }
 
   fetchSearchTopStories(query, page = 0) {
-    fetch(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${query}&${PARAM_PAGE}${page}`)
+    fetch(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${query}&${PARAM_PAGE}${page}&${PARAM_HPP}${DEFAULT_HPP}`)
       .then(response => response.json())
       .then(result => this.setSearchTopStories(result))
       .catch(error => error);
