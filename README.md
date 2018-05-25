@@ -10,6 +10,7 @@ from book Road to react, author Robin Wieruch
 * submit filtered posts
 * to archive a post in the list
 * able to search different HackerNews stories (no client-side search anymore)
+* paginated fetch: concatenate old and new list of hits from the local state and new result object
 
 ## TODO 
 * should onSubmit hanlder be inside SearchForm?

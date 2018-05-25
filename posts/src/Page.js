@@ -29,12 +29,27 @@ export default class Page extends Component {
     this.onSearchSubmit = this.onSearchSubmit.bind(this);  
   }  
 
+
   setSearchTopStories(result) {
-    this.setState({ result })
+    const { hits, page } = result;
+    
+    // concatenate the old and new list of hits from the local state and new result object
+    const oldHits = page !== 0
+    ? this.state.result.hits
+    : [];
+    //console.log(oldHits);
+
+    const updatedHits = [
+      ...oldHits,
+      ...hits
+    ];
+
+    this.setState({ 
+      result: { hits: updatedHits, page } 
+    });
   }
 
   fetchSearchTopStories(query, page = 0) {
-    console.log(page);
     fetch(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${query}&${PARAM_PAGE}${page}`)
       .then(response => response.json())
       .then(result => this.setSearchTopStories(result))
@@ -43,7 +58,6 @@ export default class Page extends Component {
 
   componentDidMount() {
     const { query } = this.state;
-
     this.fetchSearchTopStories(query);
   }
 
