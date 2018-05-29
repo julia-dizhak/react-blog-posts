@@ -2,6 +2,7 @@
 simple blog with a posts build by react using [HackerNews API](https://github.com/HackerNews/API)
 
 from book Road to react, author Robin Wieruch
+demo is https://julia-dizhak.github.io/react-blog-posts/posts/demo/
 
 ## Posts
 * render posts from const and from [HackerNews API](https://hn.algolia.com/api/v1/search?query=redux)
