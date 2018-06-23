@@ -22,10 +22,12 @@ export default class Page extends Component {
     super(props);
 
     this.state = {
-      result: null,
+      results: null,
+      searchKey: '', // is used to store each result
       query: DEFAULT_QUERY
     };
 
+    this.needsToSearchTopStories = this.needsToSearchTopStories.bind(this)
     this.setSearchTopStories = this.setSearchTopStories.bind(this);
     this.fetchSearchTopStories = this.fetchSearchTopStories.bind(this);
     this.onDismiss = this.onDismiss.bind(this);
@@ -33,15 +35,19 @@ export default class Page extends Component {
     this.onSearchSubmit = this.onSearchSubmit.bind(this);  
   }  
 
+  // check that prevents the request to API if searchKey was already saved
+  needsToSearchTopStories(query) {
+    return !this.state.results[query]
+  }
 
   setSearchTopStories(result) {
     const { hits, page } = result;
+    const { searchKey, results } = this.state;
     
     // concatenate the old and new list of hits from the local state and new result object
-    const oldHits = page !== 0
-    ? this.state.result.hits
+    const oldHits = results && results[searchKey]
+    ? results[searchKey].hits 
     : [];
-    //console.log(oldHits);
 
     const updatedHits = [
       ...oldHits,
@@ -49,7 +55,10 @@ export default class Page extends Component {
     ];
 
     this.setState({ 
-      result: { hits: updatedHits, page } 
+      results: { 
+        ...results,
+        [searchKey]: {hits: updatedHits, page}
+      } 
     });
   }
 
@@ -62,6 +71,7 @@ export default class Page extends Component {
 
   componentDidMount() {
     const { query } = this.state;
+    this.setState({searchKey: query})
     this.fetchSearchTopStories(query);
   }
 
@@ -71,39 +81,55 @@ export default class Page extends Component {
   }
   
   onSearchSubmit(event) {
-    //this.setState({ queryActive: this.state.query });
-
     const { query } = this.state;
+    this.setState({searchKey: query})
 
-    this.fetchSearchTopStories(query);
-    event.preventDefault(); // suppress thw native browser behavior
+    if (this.needsToSearchTopStories(query)) {
+      this.fetchSearchTopStories(query);
+    }
+
+    event.preventDefault(); // suppress the native browser behavior
   }
 
   onDismiss(id) {
+    const { searchKey, results } = this.state;
+    const { hits, page } = results[searchKey];
+
     // function isNotId(item) {
     //   return item.objectID !== id;
     // }
     const isNotId = item => item.objectID !== id;
-    const updatedHits = this.state.result.hits.filter(isNotId);
+    const updatedHits = hits.filter(isNotId);
 
-    // this.setState({
-    //   result: Object.assign({}, this.state.result, {hits: updatedHits})
-    // });
+    // or can use Object.assign
     this.setState({
-      result: {...this.state.result, hits: updatedHits}
+      ...results,
+      [searchKey]: {hits: updatedHits, page}
     })
   }
 
   render() {
-    //const { queryActive } = this.state; // for onSubmit
-    const { query, result } = this.state;
-    const page = (result && result.page) || 0;
-    //const filteredList = result.filter(byQuery(query));
-    
-    //console.log(result);
-    if (!result) {
-      return null;
-    }
+    const { query, results, searchKey } = this.state;
+
+    const page = (
+      results && 
+      results[searchKey] &&
+      results[searchKey].page 
+    ) || 0;
+
+    const list = (
+      results && 
+      results[searchKey] &&
+      results[searchKey].hits 
+    ) || [];
+
+    // const message = 'no news from HackerNews API or there is no internet connection';
+
+    // const noResult = `<div className="message">message</div>`;
+
+    // if (!results) {
+    //   return noResult;
+    // }
 
     return (
       <BrowserRouter>
@@ -118,17 +144,16 @@ export default class Page extends Component {
             </SearchForm>
           </div>
 
-          {result ?
+          {results &&
             <PostsList
-              list={result.hits}
+              list={list}
               onDismiss={this.onDismiss}
             />
-            : null
           } 
 
           <div className="interactions">
               <Button
-                onClick={() => this.fetchSearchTopStories(query, page + 1)}>More</Button>  
+                onClick={() => this.fetchSearchTopStories(searchKey, page + 1)}>More</Button>  
           </div>  
 
         </div>
