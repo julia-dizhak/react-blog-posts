@@ -5,17 +5,18 @@ from book Road to react, author Robin Wieruch
 
 demo is https://julia-dizhak.github.io/react-blog-posts/posts/demo/
 
-## Posts logic
-* render posts from [HackerNews API](https://hn.algolia.com/api/v1/search?query=redux);
-* posibility to remove post;
-* filter for titles in post;
-* submit filtered posts;
-* to archive a post in the list;
-* able to search different HackerNews stories (no client-side search anymore);
-* paginated fetch: concatenate old and new list of hits from the local state and new result object;
-* client cache: client makes a request to the API only once for repeated search query(search term);
+## Posts 
+* render posts from [HackerNews API](https://hn.algolia.com/api/v1/search?query=redux)
+* posibility to remove post
+* filter for titles in post
+* submit filtered posts
+* to archive a post in the list
+* able to search different HackerNews stories (no client-side search anymore)
+* paginated fetch: concatenate old and new list of hits from the local state and new result object
+* client cache: client makes a request to the API only once for repeated search query(search term)
+* error handling: in case of errors from API request
 
-## TODO 
+### TODO 
 * should onSubmit hanlder be inside SearchForm?
 * onClick clear button inside search - update posts 
 * works together onSearch and onSubmit for search input

@@ -24,7 +24,8 @@ export default class Page extends Component {
     this.state = {
       results: null,
       searchKey: '', // is used to store each result
-      query: DEFAULT_QUERY
+      query: DEFAULT_QUERY,
+      error: null
     };
 
     this.needsToSearchTopStories = this.needsToSearchTopStories.bind(this)
@@ -37,7 +38,7 @@ export default class Page extends Component {
 
   // check that prevents the request to API if searchKey was already saved
   needsToSearchTopStories(query) {
-    return !this.state.results[query]
+    return !this.state.results[query];
   }
 
   setSearchTopStories(result) {
@@ -66,7 +67,7 @@ export default class Page extends Component {
     fetch(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${query}&${PARAM_PAGE}${page}&${PARAM_HPP}${DEFAULT_HPP}`)
       .then(response => response.json())
       .then(result => this.setSearchTopStories(result))
-      .catch(error => error);
+      .catch(error => this.setState({ error }));
     }
 
   componentDidMount() {
@@ -109,7 +110,7 @@ export default class Page extends Component {
   }
 
   render() {
-    const { query, results, searchKey } = this.state;
+    const { query, results, searchKey, error } = this.state;
 
     const page = (
       results && 
@@ -123,12 +124,10 @@ export default class Page extends Component {
       results[searchKey].hits 
     ) || [];
 
-    // const message = 'no news from HackerNews API or there is no internet connection';
+    const errorMessage = 'no news from HackerNews API or there is no internet connection or smth went wrong';
 
-    // const noResult = `<div className="message">message</div>`;
-
-    // if (!results) {
-    //   return noResult;
+    // if (error) {
+    //   return <div className="message">{errorMessage}</div>;
     // }
 
     return (
@@ -144,11 +143,12 @@ export default class Page extends Component {
             </SearchForm>
           </div>
 
-          {results &&
-            <PostsList
-              list={list}
-              onDismiss={this.onDismiss}
-            />
+          {error ?
+              <div className="message">{errorMessage}</div>
+              : <PostsList
+                  list={list}
+                  onDismiss={this.onDismiss}
+                />
           } 
 
           <div className="interactions">
