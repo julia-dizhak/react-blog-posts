@@ -14,7 +14,7 @@ demo is https://julia-dizhak.github.io/react-blog-posts/posts/demo/
 * able to search different HackerNews stories (no client-side search anymore)
 * paginated fetch: concatenate old and new list of hits from the local state and new result object
 * client cache: client makes a request to the API only once for repeated search query(search term)
-* error handling: in case of errors from API request
+* error handling: in case of errors from API request with catch and ErrorBoundary -> componentDidCatch()
 
 ### TODO 
 * should onSubmit hanlder be inside SearchForm?

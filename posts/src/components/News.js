@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 
-import SearchForm from './components/posts/Search';
-import PostsList from './components/posts/PostsList';
-import Button from './components/posts/Button';
-//import byQuery from './utils/filterByQuery';
+import SearchForm from './Search';
+import PostsList from './PostsList';
+import Button from './Button';
 
 const PATH_BASE = 'https://hn.algolia.com/api/v1',
      PATH_SEARCH = '/search',
@@ -17,11 +16,12 @@ const DEFAULT_QUERY = 'redux',
 
 //const URL = `${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${DEFAULT_QUERY}&${PARAM_PAGE}`;
 
-export default class Page extends Component {
+export default class News extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      test: 1,
       results: null,
       searchKey: '', // is used to store each result
       query: DEFAULT_QUERY,
@@ -67,7 +67,7 @@ export default class Page extends Component {
     fetch(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${query}&${PARAM_PAGE}${page}&${PARAM_HPP}${DEFAULT_HPP}`)
       .then(response => response.json())
       .then(result => this.setSearchTopStories(result))
-      .catch(error => this.setState({ error }));
+      .catch(error => this.setState({ error })); 
     }
 
   componentDidMount() {
@@ -126,10 +126,6 @@ export default class Page extends Component {
 
     const errorMessage = 'no news from HackerNews API or there is no internet connection or smth went wrong';
 
-    // if (error) {
-    //   return <div className="message">{errorMessage}</div>;
-    // }
-
     return (
       <BrowserRouter>
         <div className="page">
@@ -150,7 +146,7 @@ export default class Page extends Component {
                   onDismiss={this.onDismiss}
                 />
           } 
-
+  
           <div className="interactions">
               <Button
                 onClick={() => this.fetchSearchTopStories(searchKey, page + 1)}>More</Button>  

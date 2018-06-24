@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import Button from './Button';
-import byArchived from './../../utils/archived';
+import byArchived from './../utils/archived';
 
 const largeColumn = { width: '30%'},
     midColumn = { width: '15%'},
@@ -39,6 +39,7 @@ export default class PostsList extends Component {
         const { archivedItems } = this.state;
 
         const filteredList = list.filter(byArchived(archivedItems));
+        
         if (!list) {
             return null;
         }
