@@ -135,7 +135,7 @@ export default class News extends Component {
                 value={query}
                 onChange={this.onSearchChange}
                 onSubmit={this.onSearchSubmit}>
-            Search&nbsp;
+            search from HackerNews API &nbsp;
             </SearchForm>
           </div>
 

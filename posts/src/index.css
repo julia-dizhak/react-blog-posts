@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  padding: 0;
+  padding: 15px 0;
   color: #222;
   background: #f4f4f4;
   font: 400 14px CoreSans, Arial,sans-serif;
@@ -88,4 +88,20 @@ button:hover { color: #222;}
 .posts .title a {
   max-width: 8%;
   display: inline-block;
+}
+
+.search {
+  font-size: 16px;
+}
+.search input {
+  min-width: 280px;
+  padding: 15px;
+}
+
+.search button {
+  padding: 15px;
+  background: #6cf;
+  color: #fff;
+  min-width: 100px;
+  font-weight: bold;
 }
