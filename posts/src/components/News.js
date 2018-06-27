@@ -104,8 +104,10 @@ export default class News extends Component {
 
     // or can use Object.assign
     this.setState({
-      ...results,
-      [searchKey]: {hits: updatedHits, page}
+      results: {
+        ...results,
+        [searchKey]: {hits: updatedHits, page}
+      }
     })
   }
 

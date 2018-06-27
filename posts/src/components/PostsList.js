@@ -61,6 +61,7 @@ export default class PostsList extends Component {
                         <span style={{width: '10%'}}>{item.points}&nbsp;</span>
                         <span style={{width: '30%'}}>
                             <Button
+                                className="button-cancel"
                                 onClick={() => onDismiss(item.objectID)}>
                                 Dismiss
                             </Button>
