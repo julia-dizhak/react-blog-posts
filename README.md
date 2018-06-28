@@ -17,6 +17,16 @@ demo is https://julia-dizhak.github.io/react-blog-posts/posts/demo/
 * error handling: in case of errors from API request with catch and ErrorBoundary -> componentDidCatch()
 
 ### TODO 
+* update design (more fancy), increase search button font-size
+* add Loader (with blue color)
+* check hackerNews color primary
+* target blank attribute to news
+* increase article title
+* support basic mobile
+* when you remove animation to add
+* button more styles
+
+* axios check
 * should onSubmit hanlder be inside SearchForm?
 * onClick clear button inside search - update posts 
 * works together onSearch and onSubmit for search input

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import Button from './Button';
+import Button from '../shared/Button';
 import byArchived from './../utils/archived';
 
 const largeColumn = { width: '30%'},

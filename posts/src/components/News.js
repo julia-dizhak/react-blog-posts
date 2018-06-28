@@ -3,7 +3,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 import SearchForm from './Search';
 import PostsList from './PostsList';
-import Button from './Button';
+import Button from '../shared/Button';
 
 import { 
   PATH_BASE, 

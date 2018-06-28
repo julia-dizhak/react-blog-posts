@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-
 import News from './components/News';
-import ErrorBoundary from './components/ErrorBoundary';
+import ErrorBoundary from './shared/ErrorBoundary';
 
 class App extends Component {
   render () {
