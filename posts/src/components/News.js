@@ -21,6 +21,7 @@ export default class News extends Component {
     super(props);
 
     this.state = {
+      isMounted: false,
       test: 1,
       results: null,
       searchKey: '', // is used to store each result
@@ -72,8 +73,17 @@ export default class News extends Component {
 
   componentDidMount() {
     const { query } = this.state;
-    this.setState({searchKey: query})
+    this.setState({
+      searchKey: query,
+      isMounted: true
+    });
     this.fetchSearchTopStories(query);
+  }
+
+  componentWillUnmount() {
+    this.setState({
+      isMounted: false
+    });
   }
 
   onSearchChange(event) {

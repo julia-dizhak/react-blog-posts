@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Button has a valid snapshot 1`] = `
+<button
+  className="button"
+  onClick={undefined}
+>
+  Give Me More
+</button>
+`;

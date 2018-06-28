@@ -25,6 +25,8 @@ demo is https://julia-dizhak.github.io/react-blog-posts/posts/demo/
 * support basic mobile
 * when you remove animation to add
 * button more styles
+* hackernews favicon
+* describe Props, defaultProps
 
 * axios check
 * should onSubmit hanlder be inside SearchForm?
@@ -45,3 +47,7 @@ demo is https://julia-dizhak.github.io/react-blog-posts/posts/demo/
 ### JS
 * fetch - an asynchronous request to an API
 
+### Testing
+* Snapshot tests usually stay pretty basic. You only want to cover that the component doesn’t change its output. Once it changes the output, you have to decide if you accept the changes. Otherwise you have to fix the component when the output is not the desired output.
+
+* Enzyme is a testing utility by Airbnb to assert, manipulate and traverse your React components. You can use it to conduct unit tests to complement your snapshot tests in React.
