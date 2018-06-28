@@ -5,16 +5,16 @@ import SearchForm from './Search';
 import PostsList from './PostsList';
 import Button from './Button';
 
-const PATH_BASE = 'https://hn.algolia.com/api/v1',
-     PATH_SEARCH = '/search',
-     PARAM_SEARCH = 'query=',
-     PARAM_PAGE = 'page=',
-     PARAM_HPP = 'hitsPerPage=';
-     
-const DEFAULT_QUERY = 'redux',
-    DEFAULT_HPP = '15';
+import { 
+  PATH_BASE, 
+  PATH_SEARCH, 
+  PARAM_SEARCH, 
+  PARAM_PAGE, 
+  PARAM_HPP,
+  DEFAULT_QUERY, 
+  DEFAULT_HPP
+} from './../constants/API.js';
 
-//const URL = `${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${DEFAULT_QUERY}&${PARAM_PAGE}`;
 
 export default class News extends Component {
   constructor(props) {
