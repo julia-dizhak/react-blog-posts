@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import SearchForm from './Search';
 import PostsList from './PostsList';
 import Button from '../shared/Button';
+import Loading from './../shared/Loading';
 
 import { 
   PATH_BASE, 
@@ -17,16 +18,17 @@ import {
 
 
 export default class News extends Component {
+  _isMounted = false;
+
   constructor(props) {
     super(props);
 
     this.state = {
-      isMounted: false,
-      test: 1,
       results: null,
       searchKey: '', // is used to store each result
       query: DEFAULT_QUERY,
-      error: null
+      error: null,
+      isLoading: false
     };
 
     this.needsToSearchTopStories = this.needsToSearchTopStories.bind(this)
@@ -60,11 +62,14 @@ export default class News extends Component {
       results: { 
         ...results,
         [searchKey]: {hits: updatedHits, page}
-      } 
+      },
+      isLoading: false
     });
   }
 
   fetchSearchTopStories(query, page = 0) {
+    this.setState({ isLoading: true });
+
     fetch(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${query}&${PARAM_PAGE}${page}&${PARAM_HPP}${DEFAULT_HPP}`)
       .then(response => response.json())
       .then(result => this.setSearchTopStories(result))
@@ -73,18 +78,17 @@ export default class News extends Component {
 
   componentDidMount() {
     const { query } = this.state;
+
     this.setState({
       searchKey: query,
-      isMounted: true
+      isLoading: false
     });
     this.fetchSearchTopStories(query);
   }
 
-  componentWillUnmount() {
-    this.setState({
-      isMounted: false
-    });
-  }
+  // componentWillUnmount() {
+  //   _isMounted: true;
+  // }
 
   onSearchChange(event) {
     const { value } = event.target;
@@ -122,7 +126,9 @@ export default class News extends Component {
   }
 
   render() {
-    const { query, results, searchKey, error } = this.state;
+    const { query, results, searchKey, error, isLoading } = this.state;
+
+    console.log(isLoading);
 
     const page = (
       results && 
@@ -160,8 +166,13 @@ export default class News extends Component {
           } 
   
           <div className="interactions">
-              <Button
-                onClick={() => this.fetchSearchTopStories(searchKey, page + 1)}>More</Button>  
+            {
+              isLoading 
+              ? <Loading />
+              : <Button onClick={() => this.fetchSearchTopStories(searchKey, page + 1)}>
+                  More
+                </Button>  
+            }    
           </div>  
 
         </div>

@@ -1,23 +1,34 @@
-import React from 'react';
+import React, { Component }  from 'react';
 
-export default function SearchForm(props) {
-    const { value, onChange, onSubmit, children } = props;
+export default class SearchForm extends Component {
+    componentDidMount() {
+        if (this.input) {
+            this.input.focus()
+        }
+    }
     
-    return (
-        <form 
-            onSubmit={onSubmit}
-            className="search">
-            { children } 
-            <input
-                type="search"
-                value={value}
-                onChange={onChange}
-            />
-            <button 
-                type="submit"
-                onSubmit={onSubmit}>
-                Search
-            </button>
-        </form>
-    );
+    render() { 
+        const { value, onChange, onSubmit, children } = this.props;
+
+        return (
+            <form 
+                onSubmit={onSubmit}
+                className="search">
+                { children } 
+
+                <input
+                    type="search"
+                    value={value}
+                    onChange={onChange}
+                    ref={(node) => { this.input = node; }}
+                />
+
+                <button 
+                    type="submit"
+                    onSubmit={onSubmit}>
+                    Search
+                </button>
+            </form>
+        );
+    }
 }  
