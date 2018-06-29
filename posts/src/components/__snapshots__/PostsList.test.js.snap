@@ -108,7 +108,7 @@ exports[`PostsList has a valid snapshot 1`] = `
         }
       }
     >
-      1
+      2
        
     </span>
     <span
@@ -118,7 +118,7 @@ exports[`PostsList has a valid snapshot 1`] = `
         }
       }
     >
-      2
+      3
        
     </span>
     <span
