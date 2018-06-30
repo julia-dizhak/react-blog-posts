@@ -19,8 +19,3 @@ export default function Loading(props) {
         </div>
     );
 }  
-
-
-//   <span style="font-size: 48px; color: Dodgerblue;"
-//         <span style="color: Mediumslateblue;"> 
-//         style="font-size: 3em; color: Tomato;"

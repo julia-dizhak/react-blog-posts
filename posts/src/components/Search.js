@@ -24,6 +24,7 @@ export default class SearchForm extends Component {
                 />
 
                 <button 
+                    className="button-search"
                     type="submit"
                     onSubmit={onSubmit}>
                     Search

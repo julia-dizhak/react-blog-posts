@@ -17,6 +17,8 @@ demo is https://julia-dizhak.github.io/react-blog-posts/posts/demo/
 * error handling: in case of errors from API request with catch and ErrorBoundary -> componentDidCatch()
 
 ### TODO 
+* use 4 spaces in js
+* add message: it's a time for cup of coffee, let's make a break;
 * update design (more fancy), increase search button font-size
 * add Loader (with blue color)
 * check hackerNews color primary

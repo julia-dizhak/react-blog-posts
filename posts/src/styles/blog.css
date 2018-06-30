@@ -6,12 +6,24 @@ body {
     font: 400 14px CoreSans, Arial,sans-serif;
 }
 
+:root {
+    --default-color: #222;
+    --primary-color: tomato;
+    --secondary-color: dodgerblue;
+    --accent-color: mediumslateblue;
+}
+
 a { 
-    color: #222;
+    color: var(--default-color);
+    /* color: var(--secondary-color); */
 }
 a:hover { 
     text-decoration: underline;
 }
+*:focus { 
+    outline: none;
+}
+
 ul, li { 
     list-style: none; 
     padding: 0; 
@@ -27,18 +39,25 @@ input {
 }
   
 button {
-    padding: 10px; 
+    padding: 15px; 
     border-radius: 4px;
-    border: 1px solid #ddd; 
-    background: transparent; 
-    color: #808080;
+    color: var(--color-accent);
     cursor: pointer;
+    border: 1px solid var(--color-accent);
 }
 button:hover { 
-    color: #222;
+    border-color: var(--color-accent); 
 }
-*:focus { 
-    outline: none;
+
+.button-search {
+    border-color: var(--primary-color); 
+    background: var(--primary-color); 
+    color: #fff;
+    min-width: 100px;
+    font-weight: bold;
+}
+.button-search:hover {
+    box-shadow: 0 0 1px 1px #ccc;
 }
 
 .interactions { 
@@ -60,14 +79,6 @@ button:hover {
     padding: 15px;
 }
   
-.search button {
-    padding: 15px;
-    background: #6cf;
-    color: #fff;
-    min-width: 100px;
-    font-weight: bold;
-}
-
 .posts-list {
     margin: 30px 0;
     display: flex;
