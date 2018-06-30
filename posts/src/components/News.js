@@ -167,7 +167,7 @@ export default class News extends Component {
   
           <div className="interactions">
             {
-              isLoading 
+              !isLoading 
               ? <Loading />
               : <Button onClick={() => this.fetchSearchTopStories(searchKey, page + 1)}>
                   More
