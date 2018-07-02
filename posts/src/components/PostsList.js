@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Button from '../shared/Button';
+import { Button } from '../shared/Button';
 import byArchived from './../utils/archived';
 
 const largeColumn = { width: '30%'},

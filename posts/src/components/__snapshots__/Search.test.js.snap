@@ -12,6 +12,7 @@ exports[`Search form has a valid snapshot 1`] = `
     value={undefined}
   />
   <button
+    className="button-search"
     onSubmit={undefined}
     type="submit"
   >
