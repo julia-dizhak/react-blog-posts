@@ -11,6 +11,7 @@
     "core-decorators": "^0.20.0",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
+    "es6-promise": "^4.2.4",
     "lodash": "^4.17.10",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
@@ -19,7 +20,8 @@
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.0.17",
     "react-test-renderer": "^16.4.1",
-    "sinon": "^6.1.0"
+    "sinon": "^6.1.0",
+    "whatwg-fetch": "^2.0.4"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -31,6 +33,7 @@
     "@fortawesome/fontawesome-free": "^5.1.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
+    "babel-polyfill": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
@@ -46,7 +49,8 @@
     ],
     "plugins": [
       "react-require",
-      "babel-plugin-transform-decorators-legacy"
+      "babel-plugin-transform-decorators-legacy",
+      "babel-polyfill"
     ]
   },
   "author": "Julia Dizhak",

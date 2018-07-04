@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import axios from 'axios';
+//import axios from 'axios';
+import 'whatwg-fetch';
 
 import SearchForm from './Search';
 import PostsList from './PostsList';
@@ -70,15 +71,15 @@ export default class News extends Component {
     this.setState({ isLoading: true });
 
     // native fetch API
-    // fetch(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${query}&${PARAM_PAGE}${page}&${PARAM_HPP}${DEFAULT_HPP}`)
-    //   .then(response => response.json())
-    //   .then(result => this._isMounted && this.setSearchTopStories(result))
-    //   .catch(error => this._isMounted && this.setState({ error }));
+    fetch(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${query}&${PARAM_PAGE}${page}&${PARAM_HPP}${DEFAULT_HPP}`)
+      .then(response => response.json())
+      .then(result => this._isMounted && this.setSearchTopStories(result))
+      .catch(error => this._isMounted && this.setState({ error }));
 
     // by axios
-    axios.get(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${query}&${PARAM_PAGE}${page}&${PARAM_HPP}${DEFAULT_HPP}`)
-      .then(result => this._isMounted && this.setSearchTopStories(result.data))
-      .catch(error => this._isMounted && this.setState({ error }));  
+    // axios.get(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${query}&${PARAM_PAGE}${page}&${PARAM_HPP}${DEFAULT_HPP}`)
+    //   .then(result => this._isMounted && this.setSearchTopStories(result.data))
+    //   .catch(error => this._isMounted && this.setState({ error }));  
   }
 
   componentDidMount() {
