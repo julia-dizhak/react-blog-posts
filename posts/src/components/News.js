@@ -69,16 +69,16 @@ export default class News extends Component {
   fetchSearchTopStories(query, page = 0) {
     this.setState({ isLoading: true });
 
-    // by standart fetch API
+    // native fetch API
     // fetch(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${query}&${PARAM_PAGE}${page}&${PARAM_HPP}${DEFAULT_HPP}`)
     //   .then(response => response.json())
-    //   .then(result => this.setSearchTopStories(result))
-    //   .catch(error => this.setState({ error }));
+    //   .then(result => this._isMounted && this.setSearchTopStories(result))
+    //   .catch(error => this._isMounted && this.setState({ error }));
 
     // by axios
     axios.get(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${query}&${PARAM_PAGE}${page}&${PARAM_HPP}${DEFAULT_HPP}`)
-      .then(result => this.setSearchTopStories(result.data))
-      .catch(error => this.setState({ error }));  
+      .then(result => this._isMounted && this.setSearchTopStories(result.data))
+      .catch(error => this._isMounted && this.setState({ error }));  
   }
 
   componentDidMount() {
@@ -93,9 +93,8 @@ export default class News extends Component {
     this.fetchSearchTopStories(query);
   }
   
-  // 
   componentWillUnmount() {
-    //_isMounted: true;
+    this._isMounted = false;
   }
 
   onSearchChange(event) {
