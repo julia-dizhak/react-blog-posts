@@ -1,13 +1,14 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { Button } from '../shared/Button';
+import {Button} from '../shared/Button';
 import byArchived from './../utils/archived';
 
-import { SORTS } from './../constants/SORTS';
+import {SORTS} from './../constants/SORTS';
+import SortButton from '../shared/ButtonSort';
 
-const largeColumn = { width: '30%'},
-    midColumn = { width: '15%'},
-    smallColumn = { width: '10%'};
+const largeColumn = {width: '30%'},
+    midColumn = {width: '15%'},
+    smallColumn = {width: '10%'};
 
 const propTypes = {
     list: PropTypes.arrayOf(
@@ -42,8 +43,8 @@ export default class PostsList extends Component {
     }
 
     render() {  
-        const { list, onDismiss, sortKey, handleSort } = this.props; 
-        const { archivedItems } = this.state;
+        const {list, onDismiss, sortKey, handleSort} = this.props; 
+        const {archivedItems} = this.state;
 
         const filteredList = list.filter(byArchived(archivedItems));
         
@@ -61,9 +62,16 @@ export default class PostsList extends Component {
                         <span 
                             style={largeColumn} 
                             className="title">
-                            <a href={item.url}>{item.title}&nbsp;</a>
+                            <SortButton
+                                sortKey={'TITLE'}
+                                handleSort={handleSort}>
+                                title
+                            </SortButton>    
+                            <a href={item.url} target="_blank">{item.title}&nbsp;</a>
                         </span>
+
                         <span style={midColumn}>{item.author}&nbsp;</span>
+                        
                         <span style={smallColumn}>{item.num_comments}&nbsp;</span>
                         <span style={{width: '10%'}}>{item.points}&nbsp;</span>
                         <span style={{width: '30%'}}>

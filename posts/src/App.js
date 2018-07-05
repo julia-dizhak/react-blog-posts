@@ -12,9 +12,9 @@ library.add(faStroopwafel, faSpinner, faCoffee);
 class App extends Component {
   render () {
     return (
-      <ErrorBoundary>
-        <News /> 
-      </ErrorBoundary>
+        <ErrorBoundary>
+            <News /> 
+        </ErrorBoundary>
     );
   }
 }

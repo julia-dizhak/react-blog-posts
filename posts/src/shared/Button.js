@@ -12,13 +12,13 @@ const propTypes = {
 };
 
 export function Button(props) {
-    const { className, onClick, children } = props;
+    const {className, onClick, children} = props;
     
     return (
         <button 
            className={className}
            onClick={onClick}>
-            { children }
+            {children}
         </button>
     );
 }  
