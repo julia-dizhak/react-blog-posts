@@ -3,20 +3,13 @@ import PropTypes from 'prop-types';
 import { Button } from '../shared/Button';
 import byArchived from './../utils/archived';
 
+import { SORTS } from './../constants/SORTS';
+
 const largeColumn = { width: '30%'},
     midColumn = { width: '15%'},
     smallColumn = { width: '10%'};
 
-// function isSearched(query='') {
-//     return function(item) {
-//       // filter return new array
-//       return !query || item.title.toLowerCase().includes(query.toLowerCase());
-//       //return !query || item.title.toLowerCase().indexOf(query.toLowerCase()) !== -1;
-//     }
-// }
-
 const propTypes = {
-    //list: PropTypes.array.isRequired,
     list: PropTypes.arrayOf(
         PropTypes.shape({
             objectID: PropTypes.string.isRequired,
@@ -49,7 +42,7 @@ export default class PostsList extends Component {
     }
 
     render() {  
-        const { list, onDismiss } = this.props; 
+        const { list, onDismiss, sortKey, handleSort } = this.props; 
         const { archivedItems } = this.state;
 
         const filteredList = list.filter(byArchived(archivedItems));
@@ -61,7 +54,7 @@ export default class PostsList extends Component {
         return (
             <React.Fragment>
                 <ul className="posts-list">
-                {filteredList.map(item =>
+                {SORTS[sortKey](filteredList).map(item =>
                     <li 
                         className="posts" 
                         key={item.objectID}>

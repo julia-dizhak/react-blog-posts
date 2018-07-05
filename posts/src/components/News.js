@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { BrowserRouter } from 'react-router-dom';
-//import axios from 'axios';
 
 import SearchForm from './Search';
 import PostsList from './PostsList';
@@ -27,7 +26,8 @@ export default class News extends Component {
       searchKey: '', // is used to store each result
       query: DEFAULT_QUERY,
       error: null,
-      isLoading: false
+      isLoading: false,
+      sortKey: 'NONE'
     };
 
     this.needsToSearchTopStories = this.needsToSearchTopStories.bind(this)
@@ -36,6 +36,7 @@ export default class News extends Component {
     this.onDismiss = this.onDismiss.bind(this);
     this.onSearchChange = this.onSearchChange.bind(this);
     this.onSearchSubmit = this.onSearchSubmit.bind(this);
+    //this.handleSort = this.hanleSort.bind(this);
   }
 
   // check that prevents the request to API if searchKey was already saved
@@ -74,11 +75,6 @@ export default class News extends Component {
       .then(response => response.json())
       .then(result => this._isMounted && this.setSearchTopStories(result))
       .catch(error => this._isMounted && this.setState({ error }));
-
-    // by axios
-    // axios.get(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${query}&${PARAM_PAGE}${page}&${PARAM_HPP}${DEFAULT_HPP}`)
-    //   .then(result => this._isMounted && this.setSearchTopStories(result.data))
-    //   .catch(error => this._isMounted && this.setState({ error }));  
   }
 
   componentDidMount() {
@@ -132,8 +128,12 @@ export default class News extends Component {
     })
   }
 
+  // handleSort(sortKey) {
+  //   this.setState({sortKey: sortKey});
+  // }
+
   render() {
-    const { query, results, searchKey, error, isLoading } = this.state;
+    const { query, results, searchKey, error, sortKey, isLoading } = this.state;
 
     const page = (
       results &&
@@ -165,8 +165,10 @@ export default class News extends Component {
           {error ?
             <div className="message">{errorMessage}</div>
             : <PostsList
-              list={list}
-              onDismiss={this.onDismiss}
+                list={list}
+                onDismiss={this.onDismiss}
+                sortKey={sortKey}
+                hanleSort={this.handleSort}
             />
           }
 
