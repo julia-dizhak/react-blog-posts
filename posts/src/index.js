@@ -1,6 +1,10 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 
+import 'core-js';
+import 'whatwg-fetch';
+import 'raf/polyfill';
+
 import App from './App';
 import './styles/blog.css';
 import registerServiceWorker from './registerServiceWorker';

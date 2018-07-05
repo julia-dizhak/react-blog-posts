@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 //import axios from 'axios';
-import 'whatwg-fetch';
 
 import SearchForm from './Search';
 import PostsList from './PostsList';
