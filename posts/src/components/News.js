@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import { BrowserRouter } from 'react-router-dom';
 
 import SearchForm from './Search';
@@ -12,7 +12,8 @@ import {
     PARAM_PAGE,
     PARAM_HPP,
     DEFAULT_QUERY,
-    DEFAULT_HPP
+    DEFAULT_HPP,
+    LIST
 } from './../constants/API.js';
 
 export default class News extends Component {
@@ -22,12 +23,13 @@ export default class News extends Component {
         super(props);
 
         this.state = {
-        results: null,
-        searchKey: '', // is used to store each result
-        query: DEFAULT_QUERY,
-        error: null,
-        isLoading: false,
-        sortKey: 'NONE'
+            results: null,
+            searchKey: '', // is used to store each result
+            query: DEFAULT_QUERY,
+            error: null,
+            isLoading: false,
+            sortKey: 'NONE',
+            isSortReverse: false
         };
 
         this.needsToSearchTopStories = this.needsToSearchTopStories.bind(this)
@@ -50,20 +52,20 @@ export default class News extends Component {
 
         // concatenate the old and new list of hits from the local state and new result object
         const oldHits = results && results[searchKey]
-        ? results[searchKey].hits
-        : [];
+            ? results[searchKey].hits
+            : [];
 
         const updatedHits = [
-        ...oldHits,
-        ...hits
+            ...oldHits,
+            ...hits
         ];
 
         this.setState({
-        results: {
-            ...results,
-            [searchKey]: { hits: updatedHits, page }
-        },
-        isLoading: false
+            results: {
+                ...results,
+                [searchKey]: { hits: updatedHits, page }
+            },
+            isLoading: false
         });
     }
 
@@ -74,7 +76,9 @@ export default class News extends Component {
         fetch(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${query}&${PARAM_PAGE}${page}&${PARAM_HPP}${DEFAULT_HPP}`)
         .then(response => response.json())
         .then(result => this._isMounted && this.setSearchTopStories(result))
-        .catch(error => this._isMounted && this.setState({ error }));
+        .catch(error => {
+            this._isMounted && this.setState({ error });
+        });
     }
 
     componentDidMount() {
@@ -83,8 +87,8 @@ export default class News extends Component {
         const { query } = this.state;
 
         this.setState({
-        searchKey: query,
-        isLoading: false
+            searchKey: query,
+            isLoading: false
         });
         this.fetchSearchTopStories(query);
     }
@@ -126,23 +130,26 @@ export default class News extends Component {
     }
 
     handleSort(sortKey) {
-      this.setState({sortKey});
+        const isSortReverse = this.state.sortKey === sortKey && !this.state.isSortReverse;
+        this.setState({sortKey, isSortReverse});
     }
     
     render() {
-        const { query, results, searchKey, error, sortKey, isLoading } = this.state;
+        const {query, results, searchKey, error, sortKey, isSortReverse, isLoading } = this.state;
 
         const page = (
-        results &&
-        results[searchKey] &&
-        results[searchKey].page
+            results &&
+            results[searchKey] &&
+            results[searchKey].page
         ) || 0;
 
         const list = (
-        results &&
-        results[searchKey] &&
-        results[searchKey].hits
+            results &&
+            results[searchKey] &&
+            results[searchKey].hits
         ) || [];
+
+        //list = LIST;
 
         const errorMessage = 'no news from HackerNews API or there is no internet connection or smth went wrong';
 
@@ -152,28 +159,36 @@ export default class News extends Component {
 
             <div className="interactions">
                 <SearchForm
-                value={query}
-                onChange={this.onSearchChange}
-                onSubmit={this.onSearchSubmit}>
-                search from HackerNews API &nbsp;
+                    value={query}
+                    onChange={this.onSearchChange}
+                    onSubmit={this.onSearchSubmit}>
+                    search from HackerNews API &nbsp;
                 </SearchForm>
             </div>
 
-            {error ?
-                <div className="message">{errorMessage}</div>
+            {/* {error ?
+                <div className="error-message">{errorMessage}</div>
                 : <PostsList
                     list={list}
                     onDismiss={this.onDismiss}
                     sortKey={sortKey}
+                    isSortReverse={isSortReverse}
                     handleSort={this.handleSort}
                 />
-            }
+            } */}
+            <PostsList
+                list={list}
+                onDismiss={this.onDismiss}
+                sortKey={sortKey}
+                isSortReverse={isSortReverse}
+                handleSort={this.handleSort}
+            />
 
-            <div className="interactions">
+            <div className="loading-wrap">
                 <ButtonWithLoading
-                isLoading={isLoading}
-                onClick={() => this.fetchSearchTopStories(searchKey, page + 1)}>
-                More
+                    isLoading={isLoading}
+                    onClick={() => this.fetchSearchTopStories(searchKey, page + 1)}>
+                    More
                 </ButtonWithLoading>
             </div>
 

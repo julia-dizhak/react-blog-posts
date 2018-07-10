@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {Button} from '../shared/Button';
 import byArchived from './../utils/archived';
 
-import {SORTS} from './../constants/SORTS';
+import { SORTS } from './../constants/SORTS';
 import SortButton from '../shared/ButtonSort';
 
 const largeColumn = {width: '30%'},
@@ -43,11 +43,13 @@ export default class PostsList extends Component {
     }
 
     render() {  
-        const {list, onDismiss, sortKey, handleSort} = this.props; 
+        const {list, onDismiss, sortKey, handleSort, isSortReverse} = this.props; 
         const {archivedItems} = this.state;
 
-        const filteredList = list.filter(byArchived(archivedItems));
-        
+        const filteredList = list.filter(byArchived(archivedItems)),
+            sortedList = SORTS[sortKey](filteredList),
+            reverseSortedList = isSortReverse ? sortedList.reverse() : sortedList; 
+
         if (!list) {
             return null;
         }
@@ -55,7 +57,7 @@ export default class PostsList extends Component {
         return (
             <React.Fragment>
                 <ul className="posts-list">
-                {SORTS[sortKey](filteredList).map(item =>
+                {reverseSortedList.map(item =>
                     <li 
                         className="posts" 
                         key={item.objectID}>
@@ -64,6 +66,7 @@ export default class PostsList extends Component {
                             className="title">
                             <SortButton
                                 sortKey={'TITLE'}
+                                activeSortKey={sortKey}
                                 handleSort={handleSort}>
                                 title
                             </SortButton>    

@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default function Loading(props) {    
     return (
-        <div > 
+        <div className="loading"> 
             Loading ...
             {/* <span className="fas fa-brands"></span>
             <span className="fa-regular"></span> */}
