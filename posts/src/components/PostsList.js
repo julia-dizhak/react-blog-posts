@@ -68,26 +68,53 @@ export default class PostsList extends Component {
                                 sortKey={'TITLE'}
                                 activeSortKey={sortKey}
                                 handleSort={handleSort}>
-                                title
+                                t
                             </SortButton>    
                             <a href={item.url} target="_blank">{item.title}&nbsp;</a>
                         </span>
 
-                        <span style={midColumn}>{item.author}&nbsp;</span>
+                        <span style={midColumn}>
+                            <SortButton
+                                sortKey={'AUTHOR'}
+                                activeSortKey={sortKey}
+                                handleSort={handleSort}>
+                                a
+                            </SortButton> 
+                            <a href={item.author} target="_blank">{item.author}&nbsp;</a>
+                        </span>
                         
-                        <span style={smallColumn}>{item.num_comments}&nbsp;</span>
-                        <span style={{width: '10%'}}>{item.points}&nbsp;</span>
-                        <span style={{width: '30%'}}>
+                        <span style={smallColumn}>
+                            <SortButton
+                                sortKey={'COMMENTS'}
+                                activeSortKey={sortKey}
+                                handleSort={handleSort}>
+                                comments
+                            </SortButton> 
+                            <span>{item.num_comments}&nbsp;</span>
+                        </span>
+
+                        <span style={smallColumn}>
+                            <SortButton
+                                sortKey={'POINTS'}
+                                activeSortKey={sortKey}
+                                handleSort={handleSort}>
+                                points
+                            </SortButton> 
+                            <span>{item.points}&nbsp;</span>
+                        </span>
+
+                        <div style={largeColumn}>
                             <Button
                                 className="button-cancel"
                                 onClick={() => onDismiss(item.objectID)}>
                                 Dismiss
                             </Button>
+
                             <Button
                                 onClick={() => this.onArchive(item.objectID)}>
                                 Archive
                             </Button>
-                        </span>
+                        </div>
                     </li> )   
                 }
                 </ul> 

@@ -10,9 +10,12 @@ Enzyme.configure({ adapter: new Adapter() });
 describe('PostsList', () => {
     const props = {
         list: [
-            { title: '1', author: '1', num_comments: 1, points: 2, objectID: 'y', onDismiss: onDismiss() },
-            { title: '2', author: '2', num_comments: 2, points: 3, objectID: 'z', onDismiss: onDismiss() },
+            { title: '1', author: '1', num_comments: 1, points: 2, objectID: 'y' },
+            { title: '2', author: '2', num_comments: 2, points: 3, objectID: 'z' },
         ],
+        onDismiss: () => {},
+        sortKey: 'TITLE',
+        isSortReverse: false
     };
 
     it('renders without crashing', () => {

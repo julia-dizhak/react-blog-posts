@@ -1,26 +1,24 @@
 import React from 'react';
 import { Button } from '../shared/Button';
-import classNames from 'classnames';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default function SortButton(props) {
     const {sortKey, activeSortKey, handleSort, children} = props;
 
-    let sortClass = classNames(
-        'button-sort',
-        { 'button-active': sortKey === activeSortKey }
-    );
-
-    // const sortClass = ['button-sort'];
-    // if (sortKey === activeSortKey) {
-    //     sortClass.push('button-active');
-    // }
+    let sortClass = `button-sort ${sortKey === activeSortKey ? 'button-active' : ' '}`;
 
     return (
         <Button
-            //className={sortClass.join(' ')}
             className={sortClass}
             activeSortKey={sortKey}
             onClick={() => handleSort(sortKey)}>
+            {
+                sortKey === activeSortKey 
+                ?
+                <FontAwesomeIcon icon="arrow-up" />
+                : 
+                <FontAwesomeIcon icon="arrow-down" />
+            }
             {children}
         </Button>    
     );    

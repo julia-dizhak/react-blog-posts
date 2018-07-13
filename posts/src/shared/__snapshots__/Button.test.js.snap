@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Button has a valid snapshot 1`] = `
+exports[`Button component has a valid snapshot 1`] = `
 <button
   className="button"
-  onClick={undefined}
+  onClick={[Function]}
 >
   Give Me More
 </button>

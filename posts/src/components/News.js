@@ -166,7 +166,7 @@ export default class News extends Component {
                 </SearchForm>
             </div>
 
-            {/* {error ?
+            {error ?
                 <div className="error-message">{errorMessage}</div>
                 : <PostsList
                     list={list}
@@ -175,14 +175,14 @@ export default class News extends Component {
                     isSortReverse={isSortReverse}
                     handleSort={this.handleSort}
                 />
-            } */}
-            <PostsList
+            }
+            {/* <PostsList
                 list={list}
                 onDismiss={this.onDismiss}
                 sortKey={sortKey}
                 isSortReverse={isSortReverse}
                 handleSort={this.handleSort}
-            />
+            /> */}
 
             <div className="loading-wrap">
                 <ButtonWithLoading

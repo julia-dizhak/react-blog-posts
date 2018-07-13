@@ -1,20 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import renderer from 'react-test-renderer'; 
-import Button from './Button';
-import sinon from 'sinon';
 
-describe('Button', () => {
+import {Button} from './Button';
+
+describe('Button component', () => {
     it('renders without crashing', () => {
-        const onButtonClick = sinon.spy();
-
+        const props = { onClick: () => {} };
         const div = document.createElement('div');
-        ReactDOM.render(<Button onClick={onButtonCLick}>Give Me More</Button>, div);
+
+        ReactDOM.render(<Button {...props}>Give Me More</Button>, div);
         ReactDOM.unmountComponentAtNode(div);
     });
     
     test('has a valid snapshot', () => {
-        const component = renderer.create(<Button>Give Me More</Button>);
+        const props = { onClick: () => {} };
+        const component = renderer.create(<Button {...props}>Give Me More</Button>);
         
         let tree = component.toJSON();
         expect(tree).toMatchSnapshot();
