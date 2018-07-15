@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import News from './components/News';
+import HackerNews from './components/HackerNews';
 import ErrorBoundary from './shared/ErrorBoundary';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -12,7 +12,7 @@ class App extends Component {
   render () {
     return (
         <ErrorBoundary>
-            <News /> 
+            <HackerNews /> 
         </ErrorBoundary>
     );
   }

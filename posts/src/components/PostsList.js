@@ -88,13 +88,7 @@ export default class PostsList extends Component {
                         </p>
 
                         <span style={midColumn}>
-                            <SortButton
-                                sortKey={'AUTHOR'}
-                                activeSortKey={sortKey}
-                                isSortReverse={isSortReverse}
-                                handleSort={this.handleSort} 
-                            />
-                            <a href={item.author} target="_blank">{item.author}&nbsp;</a>
+                            <span>{item.author}&nbsp;</span>
                         </span>
                         
                         <span style={smallColumn}>

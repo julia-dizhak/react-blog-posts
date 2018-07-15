@@ -17,7 +17,30 @@ import {
     //LIST
 } from './../constants/API.js';
 
-export default class News extends Component {
+const updateSearchTopStoriesState = (hits, page) => (prevState) => {
+    const { searchKey, results } = prevState;
+
+    // concatenate the old and new list of hits from the local state 
+    // and new result object
+    const oldHits = results && results[searchKey]
+        ? results[searchKey].hits
+        : [];
+
+    const updatedHits = [
+        ...oldHits,
+        ...hits
+    ];
+
+    return {
+        results: {
+            ...results,
+            [searchKey]: { hits: updatedHits, page }
+        },
+        isLoading: false
+    }
+}
+
+export default class HackerNews extends Component {
     _isMounted = false;
 
     constructor(props) {
@@ -46,25 +69,10 @@ export default class News extends Component {
 
     setSearchTopStories(result) {
         const { hits, page } = result;
-        const { searchKey, results } = this.state;
 
-        // concatenate the old and new list of hits from the local state and new result object
-        const oldHits = results && results[searchKey]
-            ? results[searchKey].hits
-            : [];
-
-        const updatedHits = [
-            ...oldHits,
-            ...hits
-        ];
-
-        this.setState({
-            results: {
-                ...results,
-                [searchKey]: { hits: updatedHits, page }
-            },
-            isLoading: false
-        });
+        // revisited setState: use a function over an object 
+        // when state depending on the previous state
+        this.setState(updateSearchTopStoriesState(hits, page));
     }
 
     fetchSearchTopStories(query, page = 0) {

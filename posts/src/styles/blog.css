@@ -168,6 +168,7 @@ button:hover {
     display: inline-block;
     vertical-align: middle;
     margin: 0 5px 0 0;
+    font-size: 16px;
 }
 .fa-coffee {
     font-size: 30px;
