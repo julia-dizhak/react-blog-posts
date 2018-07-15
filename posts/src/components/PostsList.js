@@ -7,8 +7,8 @@ import { SORTS } from './../constants/SORTS';
 import SortButton from '../shared/ButtonSort';
 
 const largeColumn = {width: '30%'},
-    midColumn = {width: '15%'},
-    smallColumn = {width: '10%'};
+    midColumn = {width: '20%'},
+    smallColumn = {width: '20%'};
 
 const propTypes = {
     list: PropTypes.arrayOf(
@@ -77,22 +77,21 @@ export default class PostsList extends Component {
                     <li 
                         className="posts" 
                         key={item.objectID}>
-                        <p className="title" 
-                            style={largeColumn} 
-                            className="title">
+                        <p className="title">
                             <SortButton
                                 sortKey={'TITLE'}
                                 activeSortKey={sortKey}
                                 isSortReverse={isSortReverse}
                                 handleSort={this.handleSort} 
                             />  
-                            <a href={item.url} target="_blank">{item.title}&nbsp;</a>
+                            <a href={item.url} target="_blank" className="title-link">{item.title}&nbsp;</a>
                         </p>
 
                         <span style={midColumn}>
                             <SortButton
                                 sortKey={'AUTHOR'}
                                 activeSortKey={sortKey}
+                                isSortReverse={isSortReverse}
                                 handleSort={this.handleSort} 
                             />
                             <a href={item.author} target="_blank">{item.author}&nbsp;</a>
@@ -102,6 +101,7 @@ export default class PostsList extends Component {
                             <SortButton
                                 sortKey={'COMMENTS'}
                                 activeSortKey={sortKey}
+                                isSortReverse={isSortReverse}
                                 handleSort={this.handleSort} 
                             />
                             <span>{item.num_comments}&nbsp;</span>
@@ -111,6 +111,7 @@ export default class PostsList extends Component {
                             <SortButton
                                 sortKey={'POINTS'}
                                 activeSortKey={sortKey}
+                                isSortReverse={isSortReverse}
                                 handleSort={this.handleSort} 
                             />
                             <span>{item.points}&nbsp;</span>
