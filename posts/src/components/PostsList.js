@@ -28,10 +28,13 @@ export default class PostsList extends Component {
         super(props);
         
         this.state = {
-          archivedItems: []
+            archivedItems: [],
+            sortKey: 'NONE',
+            isSortReverse: false
         };
 
         this.onArchive = this.onArchive.bind(this);
+        this.handleSort = this.handleSort.bind(this);
     }
 
     onArchive(id) {
@@ -42,15 +45,28 @@ export default class PostsList extends Component {
         });
     }
 
+    handleSort(sortKey) {
+        const isSortReverse = this.state.sortKey === sortKey && !this.state.isSortReverse;
+        this.setState({sortKey, isSortReverse});
+    }
+
     render() {  
-        const {list, onDismiss, sortKey, handleSort, isSortReverse} = this.props; 
-        const {archivedItems} = this.state;
+        const {
+            list, 
+            onDismiss,  
+        } = this.props; 
+        
+        const {
+            archivedItems,
+            sortKey, 
+            isSortReverse
+        } = this.state;
 
         const filteredList = list.filter(byArchived(archivedItems)),
             sortedList = SORTS[sortKey](filteredList),
             reverseSortedList = isSortReverse ? sortedList.reverse() : sortedList; 
 
-        if (!list) {
+        if ( !list ) {
             return null;
         }
 
@@ -61,25 +77,24 @@ export default class PostsList extends Component {
                     <li 
                         className="posts" 
                         key={item.objectID}>
-                        <span 
+                        <p className="title" 
                             style={largeColumn} 
                             className="title">
                             <SortButton
                                 sortKey={'TITLE'}
                                 activeSortKey={sortKey}
-                                handleSort={handleSort}>
-                                t
-                            </SortButton>    
+                                isSortReverse={isSortReverse}
+                                handleSort={this.handleSort} 
+                            />  
                             <a href={item.url} target="_blank">{item.title}&nbsp;</a>
-                        </span>
+                        </p>
 
                         <span style={midColumn}>
                             <SortButton
                                 sortKey={'AUTHOR'}
                                 activeSortKey={sortKey}
-                                handleSort={handleSort}>
-                                a
-                            </SortButton> 
+                                handleSort={this.handleSort} 
+                            />
                             <a href={item.author} target="_blank">{item.author}&nbsp;</a>
                         </span>
                         
@@ -87,9 +102,8 @@ export default class PostsList extends Component {
                             <SortButton
                                 sortKey={'COMMENTS'}
                                 activeSortKey={sortKey}
-                                handleSort={handleSort}>
-                                comments
-                            </SortButton> 
+                                handleSort={this.handleSort} 
+                            />
                             <span>{item.num_comments}&nbsp;</span>
                         </span>
 
@@ -97,13 +111,12 @@ export default class PostsList extends Component {
                             <SortButton
                                 sortKey={'POINTS'}
                                 activeSortKey={sortKey}
-                                handleSort={handleSort}>
-                                points
-                            </SortButton> 
+                                handleSort={this.handleSort} 
+                            />
                             <span>{item.points}&nbsp;</span>
                         </span>
 
-                        <div style={largeColumn}>
+                        <span style={largeColumn}>
                             <Button
                                 className="button-cancel"
                                 onClick={() => onDismiss(item.objectID)}>
@@ -114,7 +127,7 @@ export default class PostsList extends Component {
                                 onClick={() => this.onArchive(item.objectID)}>
                                 Archive
                             </Button>
-                        </div>
+                        </span>
                     </li> )   
                 }
                 </ul> 

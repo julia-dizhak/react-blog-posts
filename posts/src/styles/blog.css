@@ -150,3 +150,21 @@ button:hover {
 .button-active {
     color: red !important;
 }
+
+.message-time {
+    text-align: center;
+    margin: 0 0 30px 0;
+}
+.message-time .title {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 5px 0 0;
+}
+.fa-coffee {
+    font-size: 30px;
+    width: 2em;
+    height: inherit;
+    display: inline-block;
+    vertical-align: middle;
+    color: brown;
+}

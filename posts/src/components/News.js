@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { BrowserRouter } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import SearchForm from './Search';
 import PostsList from './PostsList';
@@ -13,7 +14,7 @@ import {
     PARAM_HPP,
     DEFAULT_QUERY,
     DEFAULT_HPP,
-    LIST
+    //LIST
 } from './../constants/API.js';
 
 export default class News extends Component {
@@ -27,9 +28,7 @@ export default class News extends Component {
             searchKey: '', // is used to store each result
             query: DEFAULT_QUERY,
             error: null,
-            isLoading: false,
-            sortKey: 'NONE',
-            isSortReverse: false
+            isLoading: false
         };
 
         this.needsToSearchTopStories = this.needsToSearchTopStories.bind(this)
@@ -38,7 +37,6 @@ export default class News extends Component {
         this.onDismiss = this.onDismiss.bind(this);
         this.onSearchChange = this.onSearchChange.bind(this);
         this.onSearchSubmit = this.onSearchSubmit.bind(this);
-        this.handleSort = this.handleSort.bind(this);
     }
 
     // check that prevents the request to API if searchKey was already saved
@@ -129,13 +127,8 @@ export default class News extends Component {
         });
     }
 
-    handleSort(sortKey) {
-        const isSortReverse = this.state.sortKey === sortKey && !this.state.isSortReverse;
-        this.setState({sortKey, isSortReverse});
-    }
-    
     render() {
-        const {query, results, searchKey, error, sortKey, isSortReverse, isLoading } = this.state;
+        const {query, results, searchKey, error, isLoading } = this.state;
 
         const page = (
             results &&
@@ -156,41 +149,40 @@ export default class News extends Component {
         return (
         <BrowserRouter>
             <div className="page">
+                
+                <div className="message-time">
+                    <p className="title">It's a time to have a break it's and check you favourite topics</p>
+                    <FontAwesomeIcon icon="coffee" />
+                </div>
 
-            <div className="interactions">
-                <SearchForm
-                    value={query}
-                    onChange={this.onSearchChange}
-                    onSubmit={this.onSearchSubmit}>
-                    search from HackerNews API &nbsp;
-                </SearchForm>
-            </div>
+                <div className="interactions">
+                    <SearchForm
+                        value={query}
+                        onChange={this.onSearchChange}
+                        onSubmit={this.onSearchSubmit}>
+                        you can search from HackerNews API &nbsp;
+                    </SearchForm>
+                </div>
 
-            {error ?
-                <div className="error-message">{errorMessage}</div>
-                : <PostsList
+                {error ?
+                    <div className="error-message">{errorMessage}</div>
+                    : <PostsList
+                        list={list}
+                        onDismiss={this.onDismiss} 
+                    />
+                }
+                {/* <PostsList
                     list={list}
                     onDismiss={this.onDismiss}
-                    sortKey={sortKey}
-                    isSortReverse={isSortReverse}
-                    handleSort={this.handleSort}
-                />
-            }
-            {/* <PostsList
-                list={list}
-                onDismiss={this.onDismiss}
-                sortKey={sortKey}
-                isSortReverse={isSortReverse}
-                handleSort={this.handleSort}
-            /> */}
+                /> */}
 
-            <div className="loading-wrap">
-                <ButtonWithLoading
-                    isLoading={isLoading}
-                    onClick={() => this.fetchSearchTopStories(searchKey, page + 1)}>
-                    More
-                </ButtonWithLoading>
-            </div>
+                <div className="loading-wrap">
+                    <ButtonWithLoading
+                        isLoading={isLoading}
+                        onClick={() => this.fetchSearchTopStories(searchKey, page + 1)}>
+                        More
+                    </ButtonWithLoading>
+                </div>
 
             </div>
         </BrowserRouter>
