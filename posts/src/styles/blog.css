@@ -155,9 +155,22 @@ button:hover {
     text-align: center;
     margin: 0 auto 15px;
 }
+.loading .fa-spinner {
+    width: 2em;
+    height: 2em;
+    color: var(--primary-color);
+    display: inline-block;
+    vertical-align: middle;
+}
+.loading .text {
+    color: var(--primary-color);
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 0 0 5px;
+}
 
 .button-active {
-    color: red !important;
+    color: dodgerblue !important;
 }
 
 .message-time {

@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import SearchForm from './Search';
 import PostsList from './PostsList';
 import { ButtonWithLoading } from './../shared/Button';
+import withArchiveHOC from './../hoc/withArchive';
 
 import {
     PATH_BASE,
@@ -136,7 +137,7 @@ export default class HackerNews extends Component {
     }
 
     render() {
-        const {query, results, searchKey, error, isLoading } = this.state;
+        const { query, results, searchKey, error, isLoading } = this.state;
 
         const page = (
             results &&
@@ -150,50 +151,59 @@ export default class HackerNews extends Component {
             results[searchKey].hits
         ) || [];
 
-        //list = LIST;
+        // let list = (
+        //     results &&
+        //     results[searchKey] &&
+        //     results[searchKey].hits
+        // ) || [];
+        // list = LIST;
 
         const errorMessage = 'no news from HackerNews API or there is no internet connection or smth went wrong';
 
+        const ListWithArchive = withArchiveHOC(PostsList);
+
         return (
-        <BrowserRouter>
-            <div className="page">
-                
-                <div className="message-time">
-                    <p className="title">It's a time to have a break it's and check you favourite topics</p>
-                    <FontAwesomeIcon icon="coffee" />
-                </div>
+            <BrowserRouter>
+                <div className="page">
+                    
+                    <div className="message-time">
+                        <p className="title">It's a time to have a break it's and check you favourite topics</p>
+                        <FontAwesomeIcon icon="coffee" />
+                    </div>
 
-                <div className="interactions">
-                    <SearchForm
-                        value={query}
-                        onChange={this.onSearchChange}
-                        onSubmit={this.onSearchSubmit}>
-                        you can search from HackerNews API &nbsp;
-                    </SearchForm>
-                </div>
+                    <div className="interactions">
+                        <SearchForm
+                            value={query}
+                            onChange={this.onSearchChange}
+                            onSubmit={this.onSearchSubmit}>
+                            you can search from HackerNews API &nbsp;
+                        </SearchForm>
+                    </div>
 
-                {error ?
-                    <div className="error-message">{errorMessage}</div>
-                    : <PostsList
+                    {error ?
+                        <div className="error-message">{errorMessage}</div>
+                        : <ListWithArchive
+                            list={list}
+                            onDismiss={this.onDismiss} 
+                            onArchive={this.onArchive}
+                        />
+                    }
+                    
+                    {/* <ListWithArchive
                         list={list}
-                        onDismiss={this.onDismiss} 
-                    />
-                }
-                {/* <PostsList
-                    list={list}
-                    onDismiss={this.onDismiss}
-                /> */}
+                        onDismiss={this.onDismiss}
+                    /> */}
 
-                <div className="loading-wrap">
-                    <ButtonWithLoading
-                        isLoading={isLoading}
-                        onClick={() => this.fetchSearchTopStories(searchKey, page + 1)}>
-                        More
-                    </ButtonWithLoading>
+                    <div className="loading-wrap">
+                        <ButtonWithLoading
+                            isLoading={isLoading}
+                            onClick={() => this.fetchSearchTopStories(searchKey, page + 1)}>
+                            More
+                        </ButtonWithLoading>
+                    </div>
+
                 </div>
-
-            </div>
-        </BrowserRouter>
+            </BrowserRouter>
         );
     }
 }

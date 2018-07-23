@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {Button} from '../shared/Button';
-import byArchived from './../utils/archived';
 
+import { Button } from '../shared/Button';
 import { SORTS } from './../constants/SORTS';
 import SortButton from '../shared/ButtonSort';
 
@@ -28,21 +27,11 @@ export default class PostsList extends Component {
         super(props);
         
         this.state = {
-            archivedItems: [],
             sortKey: 'NONE',
             isSortReverse: false
         };
 
-        this.onArchive = this.onArchive.bind(this);
         this.handleSort = this.handleSort.bind(this);
-    }
-
-    onArchive(id) {
-        const { archivedItems } = this.state;
-    
-        this.setState({
-            archivedItems: [...archivedItems, id]
-        });
     }
 
     handleSort(sortKey) {
@@ -57,13 +46,11 @@ export default class PostsList extends Component {
         } = this.props; 
         
         const {
-            archivedItems,
             sortKey, 
             isSortReverse
         } = this.state;
 
-        const filteredList = list.filter(byArchived(archivedItems)),
-            sortedList = SORTS[sortKey](filteredList),
+        const sortedList = SORTS[sortKey](list),
             reverseSortedList = isSortReverse ? sortedList.reverse() : sortedList; 
 
         if ( !list ) {

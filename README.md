@@ -1,5 +1,5 @@
 # Blog posts build be React
-render a list with a posts using [HackerNews API](https://github.com/HackerNews/API)
+A HackerNews client - render a list with a posts using [HackerNews API](https://github.com/HackerNews/API)
 
 from book Road to react, author Robin Wieruch
 
