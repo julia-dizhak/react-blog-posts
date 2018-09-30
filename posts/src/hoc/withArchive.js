@@ -31,7 +31,8 @@ export default function withArchiveHOC(WrappedComponent) {
                 <WrappedComponent
                     {...this.props}
                     list={filteredList}
-                    onArchive={this.onArchive} />
+                    onArchive={this.onArchive} 
+                />
             )
         }
     };

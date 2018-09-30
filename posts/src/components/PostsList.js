@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+//import FlipMove from 'react-flip-move';
 
 import { Button } from '../shared/Button';
 import { SORTS } from './../constants/SORTS';
@@ -42,7 +43,8 @@ export default class PostsList extends Component {
     render() {  
         const {
             list, 
-            onDismiss,  
+            onDismiss,
+            onArchive  
         } = this.props; 
         
         const {
@@ -60,59 +62,62 @@ export default class PostsList extends Component {
         return (
             <React.Fragment>
                 <ul className="posts-list">
-                {reverseSortedList.map(item =>
-                    <li 
-                        className="posts" 
-                        key={item.objectID}>
-                        <p className="title">
-                            <SortButton
-                                sortKey={'TITLE'}
-                                activeSortKey={sortKey}
-                                isSortReverse={isSortReverse}
-                                handleSort={this.handleSort} 
-                            />  
-                            <a href={item.url} target="_blank" className="title-link">{item.title}&nbsp;</a>
-                        </p>
+                    {reverseSortedList.map(item =>
+                        <li 
+                            className="posts" 
+                            key={item.objectID}>
+                            <p className="title">
+                                <SortButton
+                                    sortKey={'TITLE'}
+                                    activeSortKey={sortKey}
+                                    isSortReverse={isSortReverse}
+                                    handleSort={this.handleSort} 
+                                />  
+                                <a href={item.url} target="_blank" className="title-link">{item.title}&nbsp;</a>
+                                <span className="points">
+                                    <SortButton
+                                        sortKey={'POINTS'}
+                                        activeSortKey={sortKey}
+                                        isSortReverse={isSortReverse}
+                                        handleSort={this.handleSort} 
+                                    />
+                                    <span>
+                                        <span>points</span>    
+                                        {item.points}&nbsp;
+                                    </span>
+                                </span>
+                            </p>
 
-                        <span style={midColumn}>
-                            <span>{item.author}&nbsp;</span>
-                        </span>
-                        
-                        <span style={smallColumn}>
-                            <SortButton
-                                sortKey={'COMMENTS'}
-                                activeSortKey={sortKey}
-                                isSortReverse={isSortReverse}
-                                handleSort={this.handleSort} 
-                            />
-                            <span>{item.num_comments}&nbsp;</span>
-                        </span>
+                            <span style={midColumn}>
+                                <span>{item.author}&nbsp;</span>
+                            </span>
+                            
+                            <span style={smallColumn}>
+                                <SortButton
+                                    sortKey={'COMMENTS'}
+                                    activeSortKey={sortKey}
+                                    isSortReverse={isSortReverse}
+                                    handleSort={this.handleSort} 
+                                />
+                                <span>comments: {item.num_comments}&nbsp;</span>
+                            </span>
 
-                        <span style={smallColumn}>
-                            <SortButton
-                                sortKey={'POINTS'}
-                                activeSortKey={sortKey}
-                                isSortReverse={isSortReverse}
-                                handleSort={this.handleSort} 
-                            />
-                            <span>{item.points}&nbsp;</span>
-                        </span>
+                            <span style={largeColumn}>
+                                <Button
+                                    className="button-cancel"
+                                    onClick={() => onDismiss(item.objectID)}>
+                                    Dismiss
+                                </Button>
 
-                        <span style={largeColumn}>
-                            <Button
-                                className="button-cancel"
-                                onClick={() => onDismiss(item.objectID)}>
-                                Dismiss
-                            </Button>
-
-                            <Button
-                                onClick={() => this.onArchive(item.objectID)}>
-                                Archive
-                            </Button>
-                        </span>
-                    </li> )   
-                }
-                </ul> 
+                                <Button
+                                    onClick={() => onArchive(item.objectID)}>
+                                    Archive
+                                </Button>
+                            </span>
+                        </li> )   
+                    }
+              
+                </ul>
             </React.Fragment> 
         );
     }    

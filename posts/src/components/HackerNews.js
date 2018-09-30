@@ -79,13 +79,24 @@ export default class HackerNews extends Component {
     fetchSearchTopStories(query, page = 0) {
         this.setState({ isLoading: true });
 
-        // native fetch API
+        // fetch(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${query}&${PARAM_PAGE}${page}&${PARAM_HPP}${DEFAULT_HPP}`)
+        //     .then(function(response) {
+        //         console.log('status', response.status);
+        //         response.json().then(function(data) {
+        //             console.log('fetch result:', data);
+        //             debugger;
+        //         }).catch(function(error) {
+        //             console.log('fetch parsing error', error);
+        //         })
+        //     })
+
+        // fetch with arrow functions    
         fetch(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${query}&${PARAM_PAGE}${page}&${PARAM_HPP}${DEFAULT_HPP}`)
-        .then(response => response.json())
-        .then(result => this._isMounted && this.setSearchTopStories(result))
-        .catch(error => {
-            this._isMounted && this.setState({ error });
-        });
+            .then(response => response.json())
+            .then(result => this._isMounted && this.setSearchTopStories(result))
+            .catch(error => {
+                this._isMounted && this.setState({ error });
+            });
     }
 
     componentDidMount() {
@@ -160,14 +171,14 @@ export default class HackerNews extends Component {
 
         const errorMessage = 'no news from HackerNews API or there is no internet connection or smth went wrong';
 
-        const ListWithArchive = withArchiveHOC(PostsList);
+        const PostListWithArchive = withArchiveHOC(PostsList);
 
         return (
             <BrowserRouter>
                 <div className="page">
                     
                     <div className="message-time">
-                        <p className="title">It's a time to have a break it's and check you favourite topics</p>
+                        <p className="title">It's a time to have a coffee break and check you favourite topics</p>
                         <FontAwesomeIcon icon="coffee" />
                     </div>
 
@@ -182,14 +193,14 @@ export default class HackerNews extends Component {
 
                     {error ?
                         <div className="error-message">{errorMessage}</div>
-                        : <ListWithArchive
+                        : <PostListWithArchive
                             list={list}
                             onDismiss={this.onDismiss} 
                             onArchive={this.onArchive}
-                        />
+                        /> 
                     }
                     
-                    {/* <ListWithArchive
+                    {/* <PostListWithArchive
                         list={list}
                         onDismiss={this.onDismiss}
                     /> */}

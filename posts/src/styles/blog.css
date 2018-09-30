@@ -80,7 +80,11 @@ button:hover {
 }
   
 .posts-list {
-    margin: 30px 0;
+    width: 90%;
+    background: #fff;
+    margin: 30px auto;
+    border: 1px solid #e3e3e3;
+    border-radius: 4px;
     display: flex;
     line-height: 24px;
     font-size: 16px;
@@ -109,9 +113,6 @@ button:hover {
     white-space: nowrap; 
     margin: 10px;
     padding: 10px 15px; 
-    background: #fff; 
-    border: 1px solid #e3e3e3;
-    border-radius: 4px;
 }
 .posts > span { 
     overflow: hidden; 
@@ -122,14 +123,25 @@ button:hover {
 .posts .title {
     font-size: 15px;
     margin-bottom: 15px;
+    border-bottom: 2px solid var(--primary-color);
+}
+.posts .title:after {
+    border-radius: 50%;
+    border: 1px solid var(--primary-color);
 }
 .posts .title-link {
     width: 90%;
+    padding: 0 0 5px 0; 
     display: inline-block;
     vertical-align: middle;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap; 
+    color: var(--primary-color);
+    text-decoration: none;
+}
+.posts .title-link:hover {
+    color: var(--default-color);
 }
 .posts .button-cancel {
     background: #ccc;
