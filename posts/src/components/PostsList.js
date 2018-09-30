@@ -7,8 +7,8 @@ import { SORTS } from './../constants/SORTS';
 import SortButton from '../shared/ButtonSort';
 
 const largeColumn = {width: '30%'},
-    midColumn = {width: '20%'},
-    smallColumn = {width: '20%'};
+    midColumn = {width: '26%'},
+    smallColumn = {width: '29%'};
 
 const propTypes = {
     list: PropTypes.arrayOf(
@@ -75,16 +75,16 @@ export default class PostsList extends Component {
                                 />  
                                 <a href={item.url} target="_blank" className="title-link">{item.title}&nbsp;</a>
                                 <span className="points">
-                                    <SortButton
-                                        sortKey={'POINTS'}
-                                        activeSortKey={sortKey}
-                                        isSortReverse={isSortReverse}
-                                        handleSort={this.handleSort} 
-                                    />
-                                    <span>
-                                        <span>points</span>    
-                                        {item.points}&nbsp;
+                                    <span className="points-wrap">
+                                        <SortButton
+                                            sortKey={'POINTS'}
+                                            activeSortKey={sortKey}
+                                            isSortReverse={isSortReverse}
+                                            handleSort={this.handleSort} 
+                                        />
+                                        points&nbsp;
                                     </span>
+                                    {item.points}
                                 </span>
                             </p>
 
